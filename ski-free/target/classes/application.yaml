@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    username: resort
+    password: resort
+    url: jdbc:mysql://localhost:3306/resort
+    
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
