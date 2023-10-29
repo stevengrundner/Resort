@@ -67,13 +67,16 @@ public class ResortController {
 		log.info("Retrieving resort by ID={}", resortId);
 		return resortService.retrieveResortById(resortId);
 	}
-	
+
 	@DeleteMapping("/resort/{resortId}")
-	public Map<String, String> deleteResortById(@PathVariable Long resortId){
+	public Map<String, String> deleteResortById(@PathVariable Long resortId) {
 		log.info("Deleting a resort by ID={}", resortId);
-		
+
 		resortService.deleteResortById(resortId);
-		
+
 		return Map.of("message", "Deletion of resort with ID=" + resortId + " was successful");
 	}
+
+	// DELETE SKIER BY ID??
+
 }

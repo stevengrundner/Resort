@@ -190,4 +190,7 @@ public class ResortService {
 		Resort resort = findResortById(resortId);
 		resortDao.delete(resort);
 	}
+
+	// DELETE SKIER BY ID???
+
 }
