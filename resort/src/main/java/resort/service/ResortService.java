@@ -51,7 +51,6 @@ public class ResortService {
 		resort.setResortZip(resortData.getResortZip());
 		resort.setResortWebsite(resortData.getResortWebsite());
 		resort.setResortApres(resortData.getResortApres());
-
 	}
 
 	private Resort findOrCreateResort(Long resortId) {
@@ -66,8 +65,37 @@ public class ResortService {
 	}
 
 	private Resort findResortById(Long resortId) {
+
 		return resortDao.findById(resortId)
 				.orElseThrow(() -> new NoSuchElementException("Resort with ID=" + resortId + " was not found.)"));
+	}
+
+	@Transactional
+	public List<ResortData> retrieveAllResorts() {
+		List<ResortData> result = new LinkedList<>();
+		List<Resort> resorts = resortDao.findAll();
+
+		for (Resort resort : resorts) {
+			ResortData rd = new ResortData(resort);
+
+			rd.getSkiers().clear();
+			rd.getRuns().clear();
+			result.add(rd);
+		}
+		return result;
+	}
+
+	@Transactional
+	public ResortData retrieveResortById(Long resortId) {
+		Resort resort = resortDao.findById(resortId)
+				.orElseThrow(() -> new NoSuchElementException("Resort ID=" + resortId + " does not exist."));
+
+		return new ResortData(resort);
+	}
+
+	public void deleteResortById(Long resortId) {
+		Resort resort = findResortById(resortId);
+		resortDao.delete(resort);
 	}
 
 	// RUN INFORMATION
@@ -82,7 +110,6 @@ public class ResortService {
 		resort.getRuns().add(run);
 
 		return new ResortRun(runDao.save(run));
-
 	}
 
 	private Run findOrCreateRun(Long resortId, Long runId) {
@@ -115,7 +142,6 @@ public class ResortService {
 		run.setRunRating(resortRun.getRunRating());
 		run.setHikeToRunTime(resortRun.getHikeToRunTime());
 		run.setHikeBackTime(resortRun.getHikeBackTime());
-
 	}
 
 	// SKIER INFORMATION
@@ -161,36 +187,6 @@ public class ResortService {
 			throw new IllegalArgumentException("Skier ID= " + skierId + " does not ski at Ski Resort ID= " + resortId);
 		}
 		return skier;
-
 	}
-
-	@Transactional
-	public List<ResortData> retrieveAllResorts() {
-		List<ResortData> result = new LinkedList<>();
-		List<Resort> resorts = resortDao.findAll();
-
-		for (Resort resort : resorts) {
-			ResortData rd = new ResortData(resort);
-
-			rd.getSkiers().clear();
-			rd.getRuns().clear();
-			result.add(rd);
-		}
-		return result;
-	}
-
-	@Transactional
-	public ResortData retrieveResortById(Long resortId) {
-		Resort resort = resortDao.findById(resortId)
-				.orElseThrow(() -> new NoSuchElementException("Resort ID=" + resortId + " does not exist."));
-		return new ResortData(resort);
-	}
-
-	public void deleteResortById(Long resortId) {
-		Resort resort = findResortById(resortId);
-		resortDao.delete(resort);
-	}
-
-	// DELETE SKIER BY ID???
 
 }

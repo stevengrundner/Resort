@@ -42,7 +42,6 @@ public class ResortData {
 
 		for (Skier skier : resort.getSkiers()) {
 			skiers.add(new ResortSkier(skier));
-
 		}
 	}
 

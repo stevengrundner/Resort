@@ -28,6 +28,8 @@ public class ResortController {
 	@Autowired
 	private ResortService resortService;
 
+	// RESORT INFORMATION
+
 	@PostMapping("/resort")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public ResortData insertResortData(@RequestBody ResortData resortData) {
@@ -40,20 +42,6 @@ public class ResortController {
 		resortData.setResortId(resortId);
 		log.info("Updating Resort Id {}", resortData);
 		return resortService.saveResort(resortData);
-	}
-
-	@PostMapping("/resort/{resortId}/run")
-	@ResponseStatus(code = HttpStatus.CREATED)
-	public ResortRun insertResortRun(@PathVariable Long resortId, @RequestBody ResortRun resortRun) {
-		log.info("Creating ski run {} for Ski Resort with ID={}", resortId, resortRun);
-		return resortService.saveRun(resortId, resortRun);
-	}
-
-	@PostMapping("resort/{resortId}/skier")
-	@ResponseStatus(code = HttpStatus.CREATED)
-	public ResortSkier insertResortSkier(@PathVariable Long resortId, @RequestBody ResortSkier resortSkier) {
-		log.info("Creating skier {} for Resort ID={}", resortId, resortSkier);
-		return resortService.saveSkier(resortId, resortSkier);
 	}
 
 	@GetMapping("/resort")
@@ -77,6 +65,24 @@ public class ResortController {
 		return Map.of("message", "Deletion of resort with ID=" + resortId + " was successful");
 	}
 
-	// DELETE SKIER BY ID??
+	// RUN INFORMATION
+
+	@PostMapping("/resort/{resortId}/run")
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public ResortRun insertResortRun(@PathVariable Long resortId, @RequestBody ResortRun resortRun) {
+		log.info("Creating ski run {} for Ski Resort with ID={}", resortId, resortRun);
+		return resortService.saveRun(resortId, resortRun);
+	}
+
+	// SKIER INFORMATION
+	
+	@PostMapping("resort/{resortId}/skier")
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public ResortSkier insertResortSkier(@PathVariable Long resortId, @RequestBody ResortSkier resortSkier) {
+		log.info("Creating skier {} for Resort ID={}", resortId, resortSkier);
+		return resortService.saveSkier(resortId, resortSkier);
+	}
+
+	
 
 }
