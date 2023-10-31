@@ -33,6 +33,7 @@ public class ResortService {
 
 	// RESORT INFORMATION
 
+	//saving a resort
 	@Transactional
 	public ResortData saveResort(ResortData resortData) {
 		Long resortId = resortData.getResortId();
@@ -41,7 +42,8 @@ public class ResortService {
 
 		return new ResortData(resortDao.save(resort));
 	}
-
+	
+	//copying all resort fields
 	private void copyResortFields(Resort resort, ResortData resortData) {
 		resort.setResortId(resortData.getResortId());
 		resort.setResortName(resortData.getResortName());
@@ -52,7 +54,8 @@ public class ResortService {
 		resort.setResortWebsite(resortData.getResortWebsite());
 		resort.setResortApres(resortData.getResortApres());
 	}
-
+	
+	//finding or creating a resort
 	private Resort findOrCreateResort(Long resortId) {
 		Resort resort;
 
@@ -64,12 +67,14 @@ public class ResortService {
 		return resort;
 	}
 
+	//finding a resort by it's ID
 	private Resort findResortById(Long resortId) {
 
 		return resortDao.findById(resortId)
 				.orElseThrow(() -> new NoSuchElementException("Resort with ID=" + resortId + " was not found.)"));
 	}
 
+	//retrieving all resorts
 	@Transactional
 	public List<ResortData> retrieveAllResorts() {
 		List<ResortData> result = new LinkedList<>();
@@ -85,6 +90,7 @@ public class ResortService {
 		return result;
 	}
 
+	//retrieving a resort by its ID
 	@Transactional
 	public ResortData retrieveResortById(Long resortId) {
 		Resort resort = resortDao.findById(resortId)
@@ -100,6 +106,7 @@ public class ResortService {
 
 	// RUN INFORMATION
 
+	//saving a run
 	@Transactional(readOnly = false)
 	public ResortRun saveRun(Long resortId, ResortRun resortRun) {
 		Resort resort = findResortById(resortId);
@@ -112,6 +119,7 @@ public class ResortService {
 		return new ResortRun(runDao.save(run));
 	}
 
+	//finding or creating a run
 	private Run findOrCreateRun(Long resortId, Long runId) {
 		Run run;
 
@@ -125,6 +133,7 @@ public class ResortService {
 		return run;
 	}
 
+	//finding a run by it's ID
 	private Run findRunById(Long resortId, Long runId) {
 		Run run = runDao.findById(runId)
 				.orElseThrow(() -> new NoSuchElementException("Run ID = " + runId + " does not exist."));
@@ -134,6 +143,7 @@ public class ResortService {
 		return run;
 	}
 
+	//coping all fields of a run
 	private void copyRunFields(Run run, ResortRun resortRun) {
 		run.setRunId(resortRun.getRunId());
 		run.setResortName(resortRun.getResortName());
@@ -146,6 +156,7 @@ public class ResortService {
 
 	// SKIER INFORMATION
 
+	//saving a skier's information
 	@Transactional(readOnly = false)
 	public ResortSkier saveSkier(Long resortId, ResortSkier resortSkier) {
 		Resort resort = findResortById(resortId);
@@ -160,12 +171,14 @@ public class ResortService {
 		return new ResortSkier(skierDao.save(skier));
 	}
 
+	//coping all fields of a skier
 	private void copySkierFields(Skier skier, ResortSkier resortSkier) {
 		skier.setSkierId(resortSkier.getSkierId());
 		skier.setSkierFirstName(resortSkier.getSkierFirstName());
 		skier.setSkierLastName(resortSkier.getSkierLastName());
 	}
 
+	//finding or creating a skier
 	private Skier findOrCreateSkier(Long resortId, Long skierId) {
 		Skier skier;
 
@@ -180,6 +193,7 @@ public class ResortService {
 		return skier;
 	}
 
+	//finding a skier by ID information
 	private Skier findSkierById(Long resortId, Long skierId) {
 		Skier skier = skierDao.findById(skierId)
 				.orElseThrow(() -> new NoSuchElementException("Skier ID = " + skierId + " does not exist."));

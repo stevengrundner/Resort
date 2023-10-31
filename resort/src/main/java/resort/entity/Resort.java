@@ -31,12 +31,14 @@ public class Resort {
 	private String resortWebsite;
 	private String resortApres;
 
+	//many resorts to many skiers
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(name = "resort_skier", joinColumns = @JoinColumn(name = "resort_id"), inverseJoinColumns = @JoinColumn(name = "skier_id"))
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	private Set<Skier> skiers = new HashSet<>();
 
+	//one resort to many runs
 	@OneToMany(mappedBy = "resort", cascade = CascadeType.ALL, orphanRemoval = true)
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude

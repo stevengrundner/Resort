@@ -23,6 +23,7 @@ public class Skier {
 	private String skierFirstName;
 	private String skierLastName;
 
+	//many skier's to many resorts
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	@ManyToMany(mappedBy = "skiers", cascade = CascadeType.PERSIST)

@@ -25,6 +25,7 @@ public class Run {
 	private String hikeToRunTime;
 	private String hikeBackTime;
 
+	//many runs to one resort
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	@ManyToOne(cascade = CascadeType.ALL)

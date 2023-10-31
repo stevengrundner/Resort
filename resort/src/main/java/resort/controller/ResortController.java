@@ -33,36 +33,36 @@ public class ResortController {
 	@PostMapping("/resort")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public ResortData insertResortData(@RequestBody ResortData resortData) {
-		log.info("Creating Resort {}", resortData);
+		log.info("Creating Ski Resort {}", resortData);
 		return resortService.saveResort(resortData);
 	}
 
 	@PutMapping("/resort/{resortId}")
 	public ResortData updateResortData(@PathVariable Long resortId, @RequestBody ResortData resortData) {
 		resortData.setResortId(resortId);
-		log.info("Updating Resort Id {}", resortData);
+		log.info("Updating Ski Resort Id {}", resortData);
 		return resortService.saveResort(resortData);
 	}
 
 	@GetMapping("/resort")
 	public List<ResortData> retrieveAllResorts() {
-		log.info("Retrieve all Resorts called.");
+		log.info("Retrieve all Ski Resorts called.");
 		return resortService.retrieveAllResorts();
 	}
 
 	@GetMapping("/resort/{resortId}")
 	public ResortData retrieveResortById(@PathVariable Long resortId) {
-		log.info("Retrieving resort by ID={}", resortId);
+		log.info("Retrieving Ski Resort by ID={}", resortId);
 		return resortService.retrieveResortById(resortId);
 	}
 
 	@DeleteMapping("/resort/{resortId}")
 	public Map<String, String> deleteResortById(@PathVariable Long resortId) {
-		log.info("Deleting a resort by ID={}", resortId);
+		log.info("Deleting Ski Resort ID={}", resortId);
 
 		resortService.deleteResortById(resortId);
 
-		return Map.of("message", "Deletion of resort with ID=" + resortId + " was successful");
+		return Map.of("message", "Deleting Ski Resort ID=" + resortId + " was successful");
 	}
 
 	// RUN INFORMATION
@@ -75,14 +75,12 @@ public class ResortController {
 	}
 
 	// SKIER INFORMATION
-	
+
 	@PostMapping("resort/{resortId}/skier")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public ResortSkier insertResortSkier(@PathVariable Long resortId, @RequestBody ResortSkier resortSkier) {
-		log.info("Creating skier {} for Resort ID={}", resortId, resortSkier);
+		log.info("Creating skier {} for Ski Resort ID={}", resortId, resortSkier);
 		return resortService.saveSkier(resortId, resortSkier);
 	}
-
-	
 
 }
